@@ -101,12 +101,12 @@
           const user = userCredential.user;
           // ...
           var lgDate = new Date();
-          update(ref(database, "users/" + user.uid), {
+          update(ref(database, "consumers/" + user.uid), {
             last_login: lgDate,
           })
             .then(() => {
               // Data saved successfully!
-              window.location.replace("welcome.html");
+              window.location.replace("restaurantmenu.html");
               alert("LoggedIn Successfully");
             })
             .catch((error) => {

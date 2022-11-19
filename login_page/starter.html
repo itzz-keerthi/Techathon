@@ -15,35 +15,35 @@
                 <th><em>Idly</em><hr>
                 <th><input type="number" id = "idlycount"value="1"  min="1" max="20"> 
                 <th><em>Rs.30</em>
-                <th><button id="idly" type="button">Add</button>       
+                <th><button id="idly" href="restaurantmenu.html" type="button">Add</button>       
             </tr>
             <tr>
                 <th><img src="dosa1.jpg" height="200px" width="300px">
                 <th><em>Dosa</em><hr>
                 <th><input type="number" id="dosacount" value="1"  min="1" max="20"> 
                 <th><em>Rs.60</em>
-                <th><button id="dosa" type="button">Add</button>        
+                <th><button id="dosa" href="restaurantmenu.html" type="button">Add</button>        
             </tr>
             <tr>
                 <th><img src="Chapati.jpg"height="200px" width="300px">
                 <th><em>Chappathi</em><hr>
                 <th><input type="number" id="chappathicount" value="1"  min="1" max="20"> 
                 <th><em>Rs.50</em>
-                    <th><button id="chappathi" type="button">Add</button>          
+                    <th><button id="chappathi" href="restaurantmenu.html" type="button">Add</button>          
             </tr>
             <tr>
                 <th><img src="pongal1.webp" height="200px" width="300px">
                 <th><em>Pongal</em><hr>
                 <th><input type="number" id = "pongalcount" value="1"  min="1" max="20">    
                 <th><em>Rs.45</em>
-                    <th><button id="pongal" type="button">Add</button>  
+                    <th><button id="pongal" href="restaurantmenu.html" type="button">Add</button>  
             </tr>
             <tr>
                 <th><img src="cholapoori.webp"height="200px" width="300px">
                 <th><em>Cholapoori</em><hr>
                 <th><input type="number" id="cholapooricount" value="1"  min="1" max="20"> 
                 <th><em>Rs.70</em>
-                    <th><button id="cholapoori" type="button">Add</button>        
+                    <th><button id="cholapoori" href="restaurantmenu.html" type="button">Add</button>        
             </tr>
             <tr>
                 <th><img src="sambar-vada.jpg"height="200px" width="300px">
@@ -125,7 +125,7 @@
             
 
             <tr>
-                <th colspan="4" align="center"><a id="button" href="restaurant menu.html">Add to order</a>
+                <th colspan="4" align="center"><a id="button" href="restaurantmenu.html">Add to order</a>
             </tr>
             <tr>
                 <th colspan="4" align="center"><hr>
@@ -178,44 +178,46 @@
     idly.addEventListener("click", (e) => {
       var count = document.getElementById("idlycount").value;
       var price = 30;
-      update(ref(database, "consmers/" + user.uid +"/idly/"), {
+      set(ref(database, "users/" + user.uid +"/idly/"), {
           count: count,
           tot_price: count*30,
         })
           .then(() => {
             // Data saved successfully!
-            //window.location.replace("welcome.html");
+            
             alert(count+" Idlies added Successfully");
           })
           .catch((error) => {
             // The write failed...
             alert(error);
           });
-          
+          window.location.replace("restaurantmenu.html");
     });
 
     dosa.addEventListener("click", (e) => {
       var count = document.getElementById("dosacount").value;
       var price = 60;
-      set(ref(database, "consmers/" + user.uid +"/dosa"), {
+      set(ref(database, "users/" + user.uid +"/dosa/"), {
           count: count,
           tot_price: count*price,
         })
           .then(() => {
             // Data saved successfully!
             //window.location.replace("welcome.html");
+            
             alert(count+" Dosas added Successfully");
           })
           .catch((error) => {
             // The write failed...
             alert(error);
           });
+          window.location.replace("restaurantmenu.html");
     });
 
     chappathi.addEventListener("click", (e) => {
       var count = document.getElementById("idlycount").value;
       var price = 50;
-      update(ref(database, "consmers/" + user.uid +"/idly"), {
+      update(ref(database, "users/" + user.uid +"/chappathi/"), {
           count: count,
           tot_price: count*50,
         })
@@ -228,6 +230,8 @@
             // The write failed...
             alert(error);
           });
+          window.location.replace("restaurantmenu.html");
+
     });
 
 
