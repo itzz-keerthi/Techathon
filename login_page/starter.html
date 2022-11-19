@@ -15,7 +15,7 @@
                 <th><em>Idly</em><hr>
                 <th><input type="number" id = "idlycount"value="1"  min="1" max="20"> 
                 <th><em>Rs.30</em>
-                <th><button id="idly" href="restaurantmenu.html" type="button">Add</button>       
+                <th><button id="idly" class="btnn" href="restaurantmenu.html" type="button">Add</button>       
             </tr>
             <tr>
                 <th><img src="dosa1.jpg" height="200px" width="300px">
@@ -178,6 +178,7 @@
     idly.addEventListener("click", (e) => {
       var count = document.getElementById("idlycount").value;
       var price = 30;
+      const user = userCredential.user;
       set(ref(database, "users/" + user.uid +"/idly/"), {
           count: count,
           tot_price: count*30,
@@ -197,6 +198,7 @@
     dosa.addEventListener("click", (e) => {
       var count = document.getElementById("dosacount").value;
       var price = 60;
+      const user = userCredential.user;
       set(ref(database, "users/" + user.uid +"/dosa/"), {
           count: count,
           tot_price: count*price,
@@ -217,6 +219,7 @@
     chappathi.addEventListener("click", (e) => {
       var count = document.getElementById("idlycount").value;
       var price = 50;
+      const user = userCredential.user;
       update(ref(database, "users/" + user.uid +"/chappathi/"), {
           count: count,
           tot_price: count*50,
