@@ -15,7 +15,7 @@
                 <th><em>Idly</em><hr>
                 <th><input type="number" id = "idlycount"value="1"  min="1" max="20"> 
                 <th><em>Rs.30</em>
-                <th><button id="idly" class="btnn" href="restaurantmenu.html" type="button">Add</button>       
+                <th><button id="idly" class="btnn" type="button">Add</button>       
             </tr>
             <tr>
                 <th><img src="dosa1.jpg" height="200px" width="300px">
@@ -144,7 +144,7 @@
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-analytics.js";
     
     import {
-      getAuth
+      getAuth, onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-auth.js";
     import {
       getDatabase,
@@ -175,11 +175,38 @@
     const auth = getAuth(app);
     const database = getDatabase(app);
 
+    var idly = document.getElementById('idly');
+    var dosa = document.getElementById('dosa');
+   /* 
+    function test(){
+
+      alert('test')
+    }
+*/
+    
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
+    // idly.addEventListener("click", (event) =>{
+    //   alert("test");
+    // })
     idly.addEventListener("click", (e) => {
+
+      // alert(error);
       var count = document.getElementById("idlycount").value;
       var price = 30;
-      const user = userCredential.user;
-      set(ref(database, "users/" + user.uid +"/idly/"), {
+      //const user = userCredential.user;
+      const user = auth.currentUser;
+      update(ref(database, "users/" + user.uid +"/idly/"), {
           count: count,
           tot_price: count*30,
         })
@@ -195,11 +222,12 @@
           window.location.replace("restaurantmenu.html");
     });
 
+    
     dosa.addEventListener("click", (e) => {
       var count = document.getElementById("dosacount").value;
       var price = 60;
-      const user = userCredential.user;
-      set(ref(database, "users/" + user.uid +"/dosa/"), {
+      const user = auth.currentUser;
+      update(ref(database, "users/" + user.uid +"/dosa/"), {
           count: count,
           tot_price: count*price,
         })
