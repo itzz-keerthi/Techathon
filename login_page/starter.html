@@ -151,6 +151,8 @@
       set,
       ref,
       update,
+      child,
+      get
     } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-database.js";
   
     // TODO: Add SDKs for Firebase products that you want to use
@@ -202,52 +204,64 @@ onAuthStateChanged(auth, (user) => {
     idly.addEventListener("click", (e) => {
 
       // alert(error);
-      var count = document.getElementById("idlycount").value;
+      var count = parseInt (document.getElementById("idlycount").value);
       var price = 30;
       //const user = userCredential.user;
       const user = auth.currentUser;
-      update(ref(database, "users/" + user.uid +"/idly/"), {
+      set(ref(database, "consumers/" + user.uid +"/idly/"), {
           count: count,
           tot_price: count*30,
         })
           .then(() => {
             // Data saved successfully!
-            
+            window.location.replace("restaurantmenu.html");
             alert(count+" Idlies added Successfully");
           })
           .catch((error) => {
             // The write failed...
             alert(error);
           });
-          window.location.replace("restaurantmenu.html");
+          
     });
 
     
     dosa.addEventListener("click", (e) => {
-      var count = document.getElementById("dosacount").value;
+      var count = parseInt (document.getElementById("dosacount").value);
       var price = 60;
       const user = auth.currentUser;
-      update(ref(database, "users/" + user.uid +"/dosa/"), {
+      update(ref(database, "consumers/" + user.uid +"/dosa/"), {
           count: count,
-          tot_price: count*price,
+          tot_price: count*price
         })
           .then(() => {
             // Data saved successfully!
             //window.location.replace("welcome.html");
-            
+            window.location.replace("restaurantmenu.html");
             alert(count+" Dosas added Successfully");
           })
           .catch((error) => {
             // The write failed...
             alert(error);
           });
-          window.location.replace("restaurantmenu.html");
+
+        
+          const dbRef = ref(database);
+          get(child(dbRef, `consumers/${userId}/totalPrice`)).then((snapshot) => {
+          if (snapshot.exists()) {
+             var totalPrice = snapshot.val()
+          } else {
+            console.log("No data available");
+          }
+        }).catch((error) => {
+            console.error(error);
+      });
+          
     });
 
     chappathi.addEventListener("click", (e) => {
       var count = document.getElementById("idlycount").value;
       var price = 50;
-      const user = userCredential.user;
+      const user = auth.currentUser;
       update(ref(database, "users/" + user.uid +"/chappathi/"), {
           count: count,
           tot_price: count*50,
@@ -255,13 +269,14 @@ onAuthStateChanged(auth, (user) => {
           .then(() => {
             // Data saved successfully!
             //window.location.replace("welcome.html");
+            window.location.replace("restaurantmenu.html");
             alert(count+" Chappathis added Successfully");
           })
           .catch((error) => {
             // The write failed...
             alert(error);
           });
-          window.location.replace("restaurantmenu.html");
+          
 
     });
 
